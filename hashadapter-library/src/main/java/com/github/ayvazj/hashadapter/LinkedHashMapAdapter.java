@@ -10,10 +10,13 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
-public class LinkedHashMapAdapter<K, V> extends BaseAdapter implements Filterable {
+public class LinkedHashMapAdapter<K, V> extends BaseAdapter implements Filterable, Iterable<Entry<K, V>> {
 
     // When set, filter operates on KEY
     public static final int FLAG_FILTER_ON_KEY = 0x1;
@@ -394,6 +397,12 @@ public class LinkedHashMapAdapter<K, V> extends BaseAdapter implements Filterabl
 
     public void setFlags(int flags) {
         this.mFlags = flags;
+    }
+
+    @NonNull
+    @Override
+    public Iterator<Entry<K, V>> iterator() {
+        return mMapData.entrySet().iterator();
     }
 
     /**
